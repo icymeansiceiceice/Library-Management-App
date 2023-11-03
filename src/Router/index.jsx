@@ -5,6 +5,7 @@ import {
 import Layout from '../Pages/Layout';
 import Create from '../Pages/Create';
 import Search from '../Pages/Search';
+import BookDetail from '../Pages/BookDetail';
 
 
   const router = createBrowserRouter([
@@ -25,8 +26,8 @@ import Search from '../Pages/Search';
           element :  <Search/>
         },
         {
-          path : '',
-          element : <Home/>
+          path : '/books/:id',
+          element : <BookDetail/>
         }
       ]
     },
