@@ -1,13 +1,17 @@
 import React from 'react'
 import book from '../assets/the-rest-is-history-hardback-book-jacket.jpg'
 import useFetch from '../hooks/UseFetch'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 
 
 export default function BookList() {
+  
+  let location = useLocation();
+  let param = new URLSearchParams(location.search);
+  let search = param.get('search');
 
-  let {data:books,loading,error} = useFetch('http://localhost:3000/books');
+  let {data:books,loading,error} = useFetch(`http://localhost:3000/books${search ? `?q=${search}` : ''}`);
   if(error){
     return <p>{error}</p>
   }
@@ -39,6 +43,9 @@ export default function BookList() {
           }
       </div>  
         )}
+        {
+          !books.length && <p className='text-center text-xl text-gray-500'>No Search Result Found!!!</p>
+        }
       </div>
   )
 }
