@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import useTheme from '../hooks/UseTheme';
+import lighticon from '../assets/light.svg'
+import darkicon from '../assets/dark.svg'
 
 export default function Navbar() {
+  let {changeTheme,isDark} = useTheme();
   let [search,setSearch] = useState();
   let navigation  = useNavigate();
   let handleSearch = (e)=>{ 
@@ -9,13 +13,13 @@ export default function Navbar() {
   }
 
   return (
-    <nav className='border border-b-1'>
+    <nav className={`border border-b-1 ${isDark ? 'bg-dbg border-primary' : 'bg-white'}`}>
             <ul className='flex justify-between items-center p-3 max-w-6xl mx-auto'>
                 <li className='flex items-center gap-3'>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>
-                  <input value={search} onChange={e => setSearch(e.target.value)} type='text' placeholder='Search Books....' className='outline-none'/>
+                  <input value={search} onChange={e => setSearch(e.target.value)} type='text' placeholder='Search Books....' className='outline-none px-2 py-1 rounded-lg'/>
                   <button onClick={handleSearch} className='text-white bg-primary px-2 py-1 rounded-2xl flex items-center gap-1'>
                     <span className='hidden md:block'>Search</span>
                   </button>
@@ -38,6 +42,10 @@ export default function Navbar() {
                   </Link>
                   <div className='w-12'>
                     <img src='https://dotesports.com/wp-content/uploads/2023/08/invoker-dota-2.jpg?resize=1536,864' alt='profile' className='w-full rounded-full'/>
+                  </div>
+                  <div className='cursor-pointer'>
+                       {isDark && <img src={lighticon} alt='' onClick={()=> changeTheme('light')}/>}
+                       {!isDark && <img src={darkicon} alt='' onClick={()=> changeTheme('dark')} />}
                   </div>
                 </li>
             </ul>

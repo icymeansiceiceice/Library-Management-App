@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 function useFetch(url,method = 'GET') {
-    let [data,setData] = useState([]);
+    let [data,setData] = useState(null);
     let [postData,setPostData] = useState('');
     let [ loading, setLoading ] = useState(false);
     let [ error, setError ] = useState(null);

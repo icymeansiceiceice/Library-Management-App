@@ -2,11 +2,13 @@ import React from 'react'
 import book from '../assets/the-rest-is-history-hardback-book-jacket.jpg'
 import useFetch from '../hooks/UseFetch'
 import { Link, useLocation, useParams } from 'react-router-dom';
+import useTheme from '../hooks/UseTheme';
 
 
 
 export default function BookList() {
   
+  let {isDark} = useTheme();
   let location = useLocation();
   let param = new URLSearchParams(location.search);
   let search = param.get('search');
@@ -25,7 +27,7 @@ export default function BookList() {
           {
             books.map((data)=> (
               <Link to={`/books/${data.id}`} key={data.id} >
-              <div className="p-4 border border-1" >
+              <div className={`p-4 border border-1 min-h-[550px] ${isDark? 'bg-dbg border-primary text-white' : ''}`} >
                 <img src={book} alt=""/>
                 <div className="text-center space-y-2 mt-3">
                   <h1>{data.title}</h1>
@@ -44,7 +46,7 @@ export default function BookList() {
       </div>  
         )}
         {
-          !books.length && <p className='text-center text-xl text-gray-500'>No Search Result Found!!!</p>
+          books && !books.length && <p className='text-center text-xl text-gray-500'>No Search Result Found!!!</p>
         }
       </div>
   )

@@ -2,17 +2,19 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import useFetch from '../hooks/UseFetch';
 import bookpic from '../assets/the-rest-is-history-hardback-book-jacket.jpg'
+import useTheme from '../hooks/UseTheme';
 
 export default function BookDetail() {
   let {id}= useParams();
   let {data:book,loading,error} = useFetch(`http://localhost:3000/books/${id}`);
+  let {isDark} = useTheme();
   
   return (
     <>
     {error && <p>{error}</p>}
     {loading && <p>loading....</p>}
     {book && (
-      <div className='grid grid-cols-2'>
+      <div className={`grid grid-cols-2 h-screen ${isDark ? 'text-white':''}`}>
         <div>
           <img src={bookpic} alt='Pic' className='w-[60%]'/>
         </div>
